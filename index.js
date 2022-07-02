@@ -1,4 +1,6 @@
 const express = require("express");
+const fs = require("fs");
+const fsPromises = require("fs/promises");
 
 const app = express()
 
@@ -10,6 +12,41 @@ app.get("/hola", (request, response) => {
 app.post("/adios", (request, response) => {
   response.send("Estamos haciendo un post desde aqui")
 })
+
+// Callbacks
+app.get("/callback", (request, response) => {
+  fs.readFile("texto.txt", "utf8", (err, data) => {
+    if(err) {
+      response.send("Hubo un error")
+      return
+    }
+    response.send(data)
+  })
+})
+
+// Promises
+app.get("/promises", (request, response) => {
+  fsPromises.readFile("texto.txt", "utf8")
+  .then((archivoALeer) => {
+    response.send(archivoALeer)
+  })
+  .catch((err) => {
+    response.send("Hubo un error")
+  })
+})
+
+// Async/Await
+// --> async/await -> try catch
+app.get("/async", async (request, response) => {
+  try {
+    const archivoLeido = await fsPromises.readFile("text.txt", "utf8")
+    response.send(archivoLeido)
+  } catch(err) {
+    console.log("err", err)
+    response.send("Hubo un error.")
+  }
+})
+
 
 /**
  * Ejercicio
