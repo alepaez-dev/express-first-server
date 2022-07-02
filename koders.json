@@ -1,0 +1,53 @@
+{
+  "mentores" : [],
+  "alumnos" : [
+    {
+      "name": "Abraham",
+      "gen": "19Js",
+      "modulo": "Backend",
+      "edad": 20
+    },
+    {
+      "name": "Noemi",
+      "gen": "19Js",
+      "modulo": "React",
+      "edad": 20
+    },
+    {
+      "name": "Lesly",
+      "gen": "19Js",
+      "modulo": "Frontend",
+      "edad": 20
+    },
+    {
+      "name": "Victor",
+      "gen": "19Js",
+      "modulo": "Enmaquetado",
+      "edad": 20
+    },
+    {
+      "name": "Marco",
+      "gen": "19Js",
+      "modulo": "React",
+      "edad": 20
+    },
+    {
+      "name": "Israel",
+      "gen": "19Js",
+      "modulo": "Enmaquetado",
+      "edad": 20
+    },
+    {
+      "name": "Lorena",
+      "gen": "19Js",
+      "modulo": "Backend",
+      "edad": 20
+    },
+    {
+      "name": "Kike",
+      "gen": "19Js",
+      "modulo": "React",
+      "edad": 20
+    }
+  ]
+}

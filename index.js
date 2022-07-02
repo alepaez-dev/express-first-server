@@ -35,6 +35,10 @@ app.get("/promises", (request, response) => {
   })
 })
 
+const resolver = async () => {
+  const archivoLeido = await fsPromises.readFile("text.txt", "utf8")
+  return archivoLeido
+}
 // Async/Await
 // --> async/await -> try catch
 app.get("/async", async (request, response) => {
@@ -46,6 +50,13 @@ app.get("/async", async (request, response) => {
     response.send("Hubo un error.")
   }
 })
+
+app.get("/todos", async (request, response) => {
+  const koders = await fsPromises.readFile("koders.json", "utf-8")
+  const kodersJson = JSON.parse(koders) // que este parseado a json.
+  response.json(kodersJson) // -> Content/Type = application/json
+})
+
 
 
 /**
