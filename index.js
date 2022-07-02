@@ -57,6 +57,12 @@ app.get("/todos", async (request, response) => {
   response.json(kodersJson) // -> Content/Type = application/json
 })
 
+app.get("/koders", async (request, response) => {
+  const koders = await fsPromises.readFile("koders.json", "utf-8")
+  const kodersJson = JSON.parse(koders) // que este parseado a json.
+  response.json(kodersJson.alumnos) // -> Content/Type = application/json
+})
+
 
 
 /**
