@@ -78,19 +78,19 @@ app.get("/koders", async (request, response) => {
 // Lo que manda el CLIENTE -> request
 // Lo qiue manda el SERVIDOR -> response
 // forEach, filter, map, reduce is not a function
-app.get("/koders/:nombre", async (request, response) => {
+// app.get("/koders/:nombre", async (request, response) => {
 
-  // Destructuracion
-  const { nombre } = request.params
-  const koders = await fsPromises.readFile("koders.json", "utf8")
+//   // Destructuracion
+//   const { nombre } = request.params
+//   const koders = await fsPromises.readFile("koders.json", "utf8")
 
-  const kodersJson = JSON.parse(koders)
-  const koderEncontrado = kodersJson.alumnos.filter((koder) => {
-    return koder.name.toLowerCase() === nombre.toLowerCase()
-  })
+//   const kodersJson = JSON.parse(koders)
+//   const koderEncontrado = kodersJson.alumnos.filter((koder) => {
+//     return koder.name.toLowerCase() === nombre.toLowerCase()
+//   })
 
-  response.json(koderEncontrado)
-})
+//   response.json(koderEncontrado)
+// })
 
 /**
  * -- Ejercicio --
@@ -100,6 +100,26 @@ app.get("/koders/:nombre", async (request, response) => {
  * Que si ese ID no existe, me regresen -> Ese koder no fue encontrado.
  * TIP: fijense en los tipos de datos si no les sale.
  */
+
+ app.get("/koders/:id", async (request, response) => {
+
+  // Destructuracion
+  const { id } = request.params
+  console.log("tipi", typeof id)
+  const koders = await fsPromises.readFile("koders.json", "utf8")
+
+  const kodersJson = JSON.parse(koders)
+  const koderEncontrado = kodersJson.alumnos.filter((koder) => {
+    return koder.id === parseInt(id)
+  })
+
+  if(!koderEncontrado.length) {
+    response.json("El koder no fue encontrado")
+    return;
+  }
+
+  response.json(koderEncontrado[0])
+})
 
 app.listen(8080, () => {
   console.log("Ya estamos escuchando desde nuestro servidor express");
