@@ -3,6 +3,7 @@ const fs = require("fs");
 const fsPromises = require("fs/promises");
 
 const app = express()
+app.use(express.json())
 
 app.get("/hola", (request, response) => {
   response.write("Holaaa desde mi endpoint /hola")
@@ -61,16 +62,42 @@ app.get("/koders", async (request, response) => {
   const koders = await fsPromises.readFile("koders.json", "utf-8")
   const kodersJson = JSON.parse(koders) // que este parseado a json.
   response.json(kodersJson.alumnos) // -> Content/Type = application/json
+});
+
+// Estructura de mi enpoints como tiene que ser si quiero que me regrese Abraham
+// -> /todos
+// -> /koders
+// -> /koders/Abraham
+// -> /koders/Bere
+// -> /koders/Victor
+
+// Syntaxis universal -> /recurso/identicador
+// identificador = name
+// Path params
+
+// Lo que manda el CLIENTE -> request
+// Lo qiue manda el SERVIDOR -> response
+// forEach, filter, map, reduce is not a function
+app.get("/koders/:nombre", async (request, response) => {
+
+  // Destructuracion
+  const { nombre } = request.params
+  const koders = await fsPromises.readFile("koders.json", "utf8")
+
+  const kodersJson = JSON.parse(koders)
+  const koderEncontrado = kodersJson.alumnos.filter((koder) => {
+    return koder.name.toLowerCase() === nombre.toLowerCase()
+  })
+
+  response.json(koderEncontrado)
 })
-
-
 
 /**
  * Ejercicio
- * Tienen que hacer un endpoint, donde lea un archivo de texto.
- * Me tiene que regresar ocmo respuesta el contenido del archivo.
- * 
- * Se puede hacer con callbacks, promises -> then/catch, -> async/await
+ * Endpoints de GET
+ * ruta -> koders/:id
+ * Que me van a regresar, todo el objeto del koder encontrado con ese identificador
+ * Que si ese ID no existe, me regresen -> Ese koder no fue encontrado.
  */
 
 app.listen(8080, () => {
