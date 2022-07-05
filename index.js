@@ -1,4 +1,5 @@
 const express = require("express");
+const req = require("express/lib/request");
 const fs = require("fs");
 const fsPromises = require("fs/promises");
 
@@ -61,7 +62,6 @@ app.get("/todos", async (request, response) => {
 // QueryParams
 app.get("/koders", async (request, response) => {
   // Destructuracion
-
   const { mod, gen } = request.query // Del objeto query sacamos los queryparams
 
   console.log("mod", mod)
@@ -115,6 +115,7 @@ app.get("/koders", async (request, response) => {
 
   // Destructuracion
   const { id } = request.params
+
   const koders = await fsPromises.readFile("koders.json", "utf8")
 
   const kodersJson = JSON.parse(koders)
@@ -132,4 +133,40 @@ app.get("/koders", async (request, response) => {
 
 app.listen(8080, () => {
   console.log("Ya estamos escuchando desde nuestro servidor express");
+})
+
+// Post
+app.post("/koders", async (request, response) => {
+  // Destructuracio
+
+  // bd -> base de datos, data base
+
+  const { name, modulo , gen, edad } = request.body // Recibimos datos
+  const koders = await fsPromises.readFile("koders.json", "utf-8")
+  const bd = JSON.parse(koders)
+  const alumnos = bd.alumnos // Guarde arreglo alumnos
+
+  const newAlumnos = [...alumnos] // Le hice un copy
+
+  // Al arreglo alumno le hice el push con los datos que recibi del body
+  newAlumnos.push({
+    name: name,
+    modulo: modulo,
+    gen : gen,
+    edad: edad
+  })
+
+  // Reemplaza en mi base de datos(koders.json) mi arreglo alumnos, por el nuevo
+  bd.alumnos = newAlumnos
+
+  // Escribi en koders.json mi base de datos nueva, con un salto de linea y 4 de indentacion
+  await fsPromises.writeFile("koders.json", JSON.stringify(bd, "\n", 4))
+
+  // Le regrese al usuario mis resultado
+  response.json({
+    name: name,
+    modulo: modulo,
+    gen : gen,
+    edad: edad
+  })
 })
