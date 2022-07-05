@@ -58,11 +58,20 @@ app.get("/todos", async (request, response) => {
   response.json(kodersJson) // -> Content/Type = application/json
 })
 
+// QueryParams
 app.get("/koders", async (request, response) => {
+  // Destructuracion
+
+  const { mod, gen } = request.query // Del objeto query sacamos los queryparams
+
+  console.log("mod", mod)
+  console.log("gen", gen)
+
   const koders = await fsPromises.readFile("koders.json", "utf-8")
   const kodersJson = JSON.parse(koders) // que este parseado a json.
   response.json(kodersJson.alumnos) // -> Content/Type = application/json
 });
+
 
 // Estructura de mi enpoints como tiene que ser si quiero que me regrese Abraham
 // -> /todos
@@ -73,7 +82,6 @@ app.get("/koders", async (request, response) => {
 
 // Syntaxis universal -> /recurso/identicador
 // identificador = name
-// Path params
 
 // Lo que manda el CLIENTE -> request
 // Lo qiue manda el SERVIDOR -> response
@@ -94,18 +102,19 @@ app.get("/koders", async (request, response) => {
 
 /**
  * -- Ejercicio --
- * Endpoints de GET
- * ruta -> koders/:id
- * Que me van a regresar, todo el objeto del koder encontrado con ese identificador
- * Que si ese ID no existe, me regresen -> Ese koder no fue encontrado.
- * TIP: fijense en los tipos de datos si no les sale.
+ * Endpoints de GET. 
+ * Ruta /koders/:name
+ * queryparam -> modulo
+ * pathparam -> name
+ * 
+ * que quiero que me regresen: El koder, o los koders.
  */
 
+  // PATH params
  app.get("/koders/:id", async (request, response) => {
 
   // Destructuracion
   const { id } = request.params
-  console.log("tipi", typeof id)
   const koders = await fsPromises.readFile("koders.json", "utf8")
 
   const kodersJson = JSON.parse(koders)
