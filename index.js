@@ -93,11 +93,12 @@ app.get("/koders/:nombre", async (request, response) => {
 })
 
 /**
- * Ejercicio
+ * -- Ejercicio --
  * Endpoints de GET
  * ruta -> koders/:id
  * Que me van a regresar, todo el objeto del koder encontrado con ese identificador
  * Que si ese ID no existe, me regresen -> Ese koder no fue encontrado.
+ * TIP: fijense en los tipos de datos si no les sale.
  */
 
 app.listen(8080, () => {
