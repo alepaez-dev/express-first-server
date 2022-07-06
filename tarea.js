@@ -1,7 +1,7 @@
 /**
  * Crear endpoints donde tengamos un path param con el id para elegir a 
- * que koder le vamos a agregar una nueva key con sus hobbies
- * 
+ * que koder le vamos a agregar una nueva key con sus hobbies.
+ * id = alumnos.length + 1 -> ID se crea en el endpoints
  * 
  * Ruta -> POST -> /koders/:id -> 1
  * 
