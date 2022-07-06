@@ -105,7 +105,30 @@ app.put("/koders/:id", async (request, response) => {
   response.json(alumnos[koderIndex])
 })
 
+app.patch("/koders/:id", async (request, response) => {
+  
+  const koders = await fsPromises.readFile("koders.json", "utf-8")
+  const bd = JSON.parse(koders)
 
+  // Destructuracion
+  const { id } = request.params
+
+  // Me trae el index
+  const koderIndex = bd.alumnos.findIndex(alumno => parseInt(id) === alumno.id)
+
+  // Koder encontrado
+  const koderEncontrado = bd.alumnos[koderIndex]
+
+
+  for(const propiedad in request.body) {
+    console.log(`${propiedad}: ${request.body[propiedad]}`)
+    koderEncontrado[propiedad] = request.body[propiedad]
+  }
+
+  await fsPromises.writeFile("koders.json", JSON.stringify(bd, "\n", 2))
+
+  response.json(koderEncontrado)
+})
 /**
  * Ejercicio
  * Hacer un endpoint de PATCH -> ruta -> /koders/:id
@@ -145,6 +168,10 @@ app.put("/koders/:id", async (request, response) => {
  * 
  * forEach, map -> arreglos
  * ciclo -> propiedad
+ * 
+ * tip: hasOwnProperty -> https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty
+ * tip: for in para ciclos de objetos
+ * 
  * 
  */
 
