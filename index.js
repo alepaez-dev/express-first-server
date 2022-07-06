@@ -105,6 +105,49 @@ app.put("/koders/:id", async (request, response) => {
   response.json(alumnos[koderIndex])
 })
 
+
+/**
+ * Ejercicio
+ * Hacer un endpoint de PATCH -> ruta -> /koders/:id
+ * 
+ * Se van a actualizar las propiedades que le mande
+ * 
+ * Ej:
+ * --Tenemos: 
+ * {
+ *  id: 4,
+ *  name: "Lesly",
+ *  gen: "19Js",
+ *  edad: 20,
+ *  modulo: "Backend",
+ * }
+ * 
+ * -- Body
+ * {
+ *  name: "Marco"
+ *  gen: "20Js",
+ * }
+ * 
+ * Se modifique solamente name y gen.
+ * 
+ * -- Output
+ * {
+ *   id: 4,
+ *   name: "Marco"
+ *   gen: "20Js",
+ *   modulo: "Backend",
+*    edad: 20
+ * }
+ * 
+ * [propiedad]
+ * 
+ * objeto[propiedad]
+ * 
+ * forEach, map -> arreglos
+ * ciclo -> propiedad
+ * 
+ */
+
 // Estructura de mi enpoints como tiene que ser si quiero que me regrese Abraham
 // -> /todos
 // -> /koders
