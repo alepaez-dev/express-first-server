@@ -1,10 +1,9 @@
 const express = require("express");
-const req = require("express/lib/request");
 const fs = require("fs");
 const fsPromises = require("fs/promises");
 
 const app = express()
-app.use(express.json())
+app.use(express.json()) // body -> json
 
 app.get("/hola", (request, response) => {
   response.write("Holaaa desde mi endpoint /hola")
@@ -72,6 +71,39 @@ app.get("/koders", async (request, response) => {
   response.json(kodersJson.alumnos) // -> Content/Type = application/json
 });
 
+// inmutables -> no se piueden modificar
+// aws -> S3 bucket
+
+// spread operator {...} vs object assign -> Object.assign
+// copia -> me hace un objeto 
+// object assign -> volver a asignar
+
+app.put("/koders/:id", async (request, response) => {
+  const koders = await fsPromises.readFile("koders.json", "utf-8")
+  const bd = JSON.parse(koders)
+
+  // Destructuracion
+  const { id } = request.params // -> esto es un string
+  const { name, gen, modulo, edad } = request.body
+
+  const alumnos = bd.alumnos
+
+  const koderIndex = alumnos.findIndex(alumno => parseInt(id) === alumno.id)
+  // Encontrar el koder que queremos modificar
+
+  // Cambiar el objeto que esta en ese indice
+  alumnos[koderIndex] = {
+    id: alumnos[koderIndex].id,
+    name,
+    gen,
+    modulo,
+    edad
+  }
+  bd.alumnos = alumnos
+  await fsPromises.writeFile("koders.json", JSON.stringify(bd, "\n", 2))
+
+  response.json(alumnos[koderIndex])
+})
 
 // Estructura de mi enpoints como tiene que ser si quiero que me regrese Abraham
 // -> /todos
