@@ -9,20 +9,6 @@
       "edad": 20
     },
     {
-      "id": 2,
-      "name": "Kike",
-      "gen": "18Js",
-      "modulo": "React",
-      "edad": 20
-    },
-    {
-      "id": 14,
-      "name": "Noemi",
-      "gen": "19Js",
-      "modulo": "React",
-      "edad": 20
-    },
-    {
       "id": 3,
       "name": "Lesly",
       "gen": "19Js",
@@ -69,20 +55,6 @@
       "name": "Israel",
       "gen": "19Js",
       "modulo": "Enmaquetado",
-      "edad": 20
-    },
-    {
-      "id": 4,
-      "name": "Lesly",
-      "gen": "19Js",
-      "modulo": "Backend",
-      "edad": 20
-    },
-    {
-      "id": 8,
-      "name": "Lorena",
-      "gen": "19Js",
-      "modulo": "Backend",
       "edad": 20
     },
     {

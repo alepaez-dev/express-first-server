@@ -119,8 +119,7 @@ app.patch("/koders/:id", async (request, response) => {
   // Koder encontrado
   const koderEncontrado = bd.alumnos[koderIndex]
 
-
-  for(const propiedad in request.body) {
+   for(const propiedad in request.body) {
     console.log(`${propiedad}: ${request.body[propiedad]}`)
     koderEncontrado[propiedad] = request.body[propiedad]
   }
@@ -128,6 +127,46 @@ app.patch("/koders/:id", async (request, response) => {
   await fsPromises.writeFile("koders.json", JSON.stringify(bd, "\n", 2))
 
   response.json(koderEncontrado)
+})
+
+app.delete("/koders/:id", async (request, response) => {
+
+  // Params
+  const { id } = request.params
+  
+
+  const koders = await fsPromises.readFile("koders.json", "utf-8")
+  const bd = JSON.parse(koders)
+
+  const koderEncontrado = bd.alumnos.filter(koder => {
+    return koder.id === parseInt(id)
+  })
+
+  if(!koderEncontrado.length) {
+    response.status(404) // No se encontro el koder
+    response.json({
+      "message": "El koder solicitdado no se encontro"
+    })
+    return;
+  }
+
+  const kodersQueSeQuedan = bd.alumnos.filter((koder) => {
+    if(koder.id !== parseInt(id)) {
+      return koder
+    }
+  })
+
+
+  // Modificacion
+  bd.alumnos = kodersQueSeQuedan
+
+  console.log("bd.alumnos", bd.alumnos)
+
+  await fsPromises.writeFile("koders.json", JSON.stringify(bd, "\n", 2))
+
+  response.status(202) //not found
+  response.json("Se elimino exitosamente")
+
 })
 /**
  * Ejercicio
