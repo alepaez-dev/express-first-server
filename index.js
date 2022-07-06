@@ -88,8 +88,8 @@ app.put("/koders/:id", async (request, response) => {
 
   const alumnos = bd.alumnos
 
-  const koderIndex = alumnos.findIndex(alumno => parseInt(id) === alumno.id)
   // Encontrar el koder que queremos modificar
+  const koderIndex = alumnos.findIndex(alumno => parseInt(id) === alumno.id)
 
   // Cambiar el objeto que esta en ese indice
   alumnos[koderIndex] = {
